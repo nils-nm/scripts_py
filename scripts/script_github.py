@@ -1,28 +1,62 @@
 import os
 import subprocess as sub
 
+branch = ''
+def status():
+    print('--------------------------------------')
+    os.system('git status')
+    print('--------------------------------------')
+    os.system('git branch')
+    print('--------------------------------------')
+
+
 while True:
 
-    lis = []
-    f = ''
     print('началось выполнение задачи мы в ', os.getcwd())
     print('проверка в каком мы ветвлении и статуса файлов')
-    os.system('git status')
-    os.system('git branch')
-    a = input('если вас все устраивает нажмите enter иначе введите имя ветвления в которое вы хотите попасть \n~ ')
-    if not a == 'master':
+    status()
+    for i in sub.getoutput('git branch'):
+        if '*' in i:
+            branch = i
+    a = input('если вас все устраивает нажмите enter или введите exit для выхода '
+              'иначе введите имя ветвления в которое вы хотите попасть \n--> ')
+
+    if a != 'main' and a != '':
+
         for i in sub.getoutput('git branch'):
-            f += i
-        if a in f:
-            os.system('git checkout ' + a)
-        elif a == '* ' + a:
-            print('already ')
-        else:
-            os.system('git checkout -b ' + a)
-        os.system('git checkout ' + a)
+            if '*' in i:
+                if 'main' in i:
+                    print('мы щас в main перехожу в ' + a)
+                    os.system('git checkout ' + a)
+                elif a in i:
+                    print('мы щас в ' + a + ' остаюсь в ' + a)
+                else:
+                    print('ветвления ' + a + ' нет, создаю ' + a + ' и перехожу в него')
+                    os.system('git checkout -b ' + a)
+    elif a == 'main':
+        for i in sub.getoutput('git branch'):
+            if '*' in i:
+                if a in i:
+                    print('мы щас в ' + a + ' остаюсь в ' + a)
 
-    output_branch = sub.getoutput('ls ~/PycharmProjects/mahlab/task')
+                elif a not in i:
+                    print('мы щас в ' + i + ' перехожу в ' + a)
+                    os.system('git checkout ' + a)
+    elif a == 'exit':
+        break
+    status()
+    print('одобряю все для коммита')
+    os.system('git add -A')
+    print('делаю коммит')
+    os.system('git commit')
+    if branch == 'main':
+        pass
+    else:
+        print('ассоциируем ветку ' + branch + ' с веткой main')
 
-    # print(output_branch)
+
+
+
     break
-# it is test
+    # print(output_branch)
+    # output_branch = sub.getoutput('ls ~/PycharmProjects/mahlab/task')
