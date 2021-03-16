@@ -64,6 +64,8 @@ while True:
             f = t.split()
             for j in range(len(f)):
                 if f[j] == '*':
+                    print(f)
+                    print(f[j])
                     branch = f[j + 1]
     if branch == 'main':
         print('вношу изменения в интернет')
