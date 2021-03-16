@@ -60,13 +60,12 @@ while True:
     status()
     for i in sub.getoutput('git branch'):
         t += i
-        if '*' in i:
-            f = t.split()
-            for j in range(len(f)):
-                if f[j] == '*':
-                    print(f)
-                    print(f[j])
-                    branch = f[j + 1]
+    f = t.split()
+    for j in range(len(f)):
+        if f[j] == '*':
+            print(f)
+            print(f[j])
+            branch = f[j + 1]
     if branch == 'main':
         print('вношу изменения в интернет')
         os.system('git push origin')
