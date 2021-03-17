@@ -1,5 +1,7 @@
+# My top script on python
 import os
 import subprocess as sub
+
 
 branch = ''
 f = ''
@@ -80,7 +82,7 @@ while True:
         os.system('git merge ' + branch)
         print('сливаюсь удаленно')
         os.system('git push origin main')
-    if input('удалить ветвление? (y/n)\n-->') == 'y':
+    if input('удалить ветвление? (y/n)\n--> ') == 'y':
         print('удаляю ' + branch)
         os.system('git branch -D ' + branch)
         print('работа завершена отключаюсь')
